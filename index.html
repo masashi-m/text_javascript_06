@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JS_6.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="1-vuejs-%E3%81%AE%E5%9F%BA%E6%9C%AC%E6%A9%9F%E8%83%BD%E3%81%A8%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88">1. Vue.js の基本機能とコンポーネント</h1>
+<img src="vue_logo.png">
+<h2 id="%E2%97%86vuejs-%E3%81%AE%E3%81%8A%E3%81%95%E3%82%89%E3%81%84">◆Vue.js のおさらい</h2>
+<p>Vue.js とは、JavaScript のフレームワークで、Web アプリなどの<br>
+UI(ユーザーインターフェース)部分を開発するためのツールです。</p>
+<p>Web アプリでは、HTML との連携が必要となります。<br>
+Vue.js の考え方として、HTML：テンプレート、<br>
+JavaScript：データオブジェクト とみなす事ができます。</p>
+<p>Vue.js を使用するに当たり、以下のキーワードが基本となります。</p>
+<blockquote>
+<p>・Vue クラスとインスタンス<br>
+・Mastache 構文<br>
+・ディレクティブ<br>
+・コンポーネント</p>
+</blockquote>
+<p>1 つずつ解説して行きます。</p>
+<br>
+<h3 id="%E2%97%8F-vue-%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%81%A8%E3%81%AF">● Vue クラス、インスタンスとは</h3>
+<p>クラスは設計図、インスタンスは実体に例えられます。<br>
+Vue.js を利用する際は、Vue クラスを定義した後に、<br>
+変数などを指定したインスタンスを作成します。<br>
+後述する new は New 演算子と呼ばれ、クラスを<br>
+インスタンス化する際に用いられます。</p>
+<br>
+<h3 id="%E2%97%8F-mastache-%E6%A7%8B%E6%96%87%E3%81%A8%E3%81%AF">● Mastache 構文とは</h3>
+<p>テンプレート(HTML)からデータオブジェクト(Vue.js)にアクセス<br>
+する際に参照される {{ }}(二重波括弧)の事を指します。<br>
+Vue.js のプロパティや、JavaScript 式が利用可能です。</p>
+<br>
+<h3 id="%E2%97%8F-%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%86%E3%82%A3%E3%83%96%E3%81%A8%E3%81%AF">● ディレクティブとは</h3>
+<p>CSS の clss 属性のように、html タグに対して記述する属性の事。<br>
+「v-」から始まり、用途に応じて分類があります。以下は一例です。<br>
+・v-bind：式の値をページに反映させる<br>
+・v-on：イベント処理を実装させる<br>
+・v-model：フォームからの入力値を取得させる<br>
+・v-for, v-if：繰り返し処理や条件分岐を実装させる</p>
+<p>上記のキーワードを押さえながら、次の演習を実施しましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+Vue_web6フォルダ内の各ファイルに、以下のコードを記述して結果を確認しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!--bodyタグ配下に記述 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app1"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ message }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ 2 + 3 }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ Date.now() }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app2"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">"url"</span>&gt;</span>計装エンジニアリング<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app3"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>名前： {{ name }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"name"</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> app1 = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app1"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">message</span>: <span class="hljs-string">"こんにちは！"</span>,
+  },
+});
+
+<span class="hljs-keyword">let</span> app2 = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app2"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">url</span>: <span class="hljs-string">"https://www.keiso.co.jp/"</span>,
+  },
+});
+
+<span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app3"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">""</span>,
+  },
+});
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8F-%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%A8%E3%81%AF">● コンポーネントとは</h3>
+<p>部品、成分、構成要素を意味する単語で、Vue.js では<br>
+ページを構成する UI 部品の事を指します。コンポーネント<br>
+として定義したものは、HTML で要素を記述する事で<br>
+繰り返し利用する事が可能です。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述し、コンポーネント化されたボタンを表示させましょう。<br>
+※演習1のコードは削除する事
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!--bodyタグ配下に記述--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"components"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button-counter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button-counter</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button-counter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button-counter</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button-counter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button-counter</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// button-counter のコンポーネントを定義</span>
+Vue.component(<span class="hljs-string">"button-counter"</span>, {
+  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,
+    };
+  },
+  <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;button v-on:click="count++"&gt;click {{ count }} !&lt;/button&gt;'</span>,
+});
+<span class="hljs-comment">// id="components"に Vueを適用</span>
+<span class="hljs-keyword">new</span> Vue({ <span class="hljs-attr">el</span>: <span class="hljs-string">"#components"</span> });
+</div></code></pre>
+<br>
+<hr>
+<p><br><br><br></p>
+<h1 id="2-%E5%BF%9C%E7%94%A8-vuejs1">2. 応用 Vue.js(1)</h1>
+<h2 id="%E2%97%86-%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E8%A8%AD%E5%AE%9A">◆ アニメーションの設定</h2>
+<p>Vue.js では、テンプレート要素(HTML 要素)に対し、標準で<br>
+アニメーション効果を設定できます。第 2 章では、その機能に<br>
+ついて学習して行きましょう。</p>
+<br>
+<h3 id="%E2%97%8Ftransition-%E8%A6%81%E7%B4%A0">●transition 要素</h3>
+<p>アニメーションを有効にするためには、transition 要素で<br>
+対象の要素を囲みます。この時、対象は単一の要素でなければ<br>
+ならない事に注意しましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+Vue_animationフォルダ内の各ファイルに、次のコードを記述して結果を確認しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!--bodyタグ配下に記述--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"表示/非表示"</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"onclick"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"panel"</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">"flag"</span>&gt;</span>
+      クリックで表示が切り替わります。Vue.jsはこのようにアニメーションを設定する事ができる便利なフレームワークです。
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<p>[CSS]</p>
+<pre class="hljs"><code><div><span class="hljs-selector-id">#panel</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid lime;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">350px</span>;
+  <span class="hljs-attribute">overflow</span>: hidden;
+}
+<span class="hljs-comment">/*アニメーション実施中の設定*/</span>
+<span class="hljs-selector-class">.v-enter-active</span>,
+<span class="hljs-selector-class">.v-leave-active</span> {
+  <span class="hljs-attribute">transition</span>: height <span class="hljs-number">0.5s</span>;
+}
+<span class="hljs-comment">/*開始状態(表示)*/</span>
+<span class="hljs-selector-class">.v-enter</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">0px</span>;
+}
+<span class="hljs-comment">/*終了状態*/</span>
+<span class="hljs-selector-class">.v-enter-to</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">70px</span>;
+}
+<span class="hljs-comment">/*開始状態(非表示)*/</span>
+<span class="hljs-selector-class">.v-leave</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">70px</span>;
+}
+<span class="hljs-comment">/*終了状態*/</span>
+<span class="hljs-selector-class">.v-leave-to</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">0px</span>;
+}
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app"</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">flag</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">methods</span>: {
+    <span class="hljs-attr">onclick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">this</span>.flag = !<span class="hljs-keyword">this</span>.flag;
+    },
+  },
+});
+</div></code></pre>
+<br>
+<h2 id="%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E8%A7%A3%E8%AA%AC">コードの解説</h2>
+<h4 id="%E2%97%8F-input-type%22button%22-value%22%E8%A1%A8%E7%A4%BA%E9%9D%9E%E8%A1%A8%E7%A4%BA%22-v-onclick%22onclick%22">● input type=&quot;button&quot; value=&quot;表示/非表示&quot; v-on:click=&quot;onclick&quot; /</h4>
+<p>この記述は、以下の内容を設定しています。</p>
+<blockquote>
+<p>・「表示/非表示」のラベルがついたボタンフォーム作成<br>
+・イベントハンドラーの v-on ディレクティブに click イベントを設定<br>
+・v-on:click に対し、onclick メソッドを紐づけ<br>
+→ クリックすると Vue クラスに記述した onclick メソッドを実行する。</p>
+</blockquote>
+<br>
+<h4 id="%E2%97%8F-div-id%22panel%22-v-show%22flag%22">● div id=&quot;panel&quot; v-show=&quot;flag&quot;</h4>
+<p>この記述は、以下の内容を設定しています。</p>
+<blockquote>
+<p>・CSS の panel セレクタに記述されたプロパティの対象化。<br>
+・transition で囲む事で、アニメーションの対象化。<br>
+・値の true/false で要素の表示/非表示を指定する<br>
+v-show ディレクティブに、変数 flag を指定。<br>
+→Vue の onclick メソッドで指定される flag の値で、アニメーション効果の切替えを実行する。</p>
+</blockquote>
+<br>
+<h4 id="%E2%97%8F-v-enter-active-v-leave-active">● .v-enter-active, .v-leave-active</h4>
+<p>この記述は、以下の内容を設定しています。</p>
+<blockquote>
+<p>・v-enter は要素が追加(表示)される時、v-leave は要素が破棄(非表示)される時の設定<br>
+・.v-enter-active は、v-enter(開始)から v-enter-to(終了)までの設定<br>
+・.v-leave-active は、v-leave(開始)から v-leave-to(終了)までの設定</p>
+</blockquote>
+<br>
+<h4 id="%E2%97%8F-data--flagtrue">● data: { flag:true }</h4>
+<p>この記述は、以下の内容を設定しています。</p>
+<blockquote>
+<p>・data オブジェクトにプロパティを設定<br>
+・flag プロパティに値：true を指定</p>
+</blockquote>
+<br>
+<h4 id="%E2%97%8F-methods--onclickfunction--thisflag--thisflag">● methods: { onclick:function() { this.flag = !this.flag; } }</h4>
+<p>この記述は、以下の内容を設定しています。</p>
+<blockquote>
+<p>・onclick メソッドに function() を定義<br>
+・this で Vue インスタンスを指定<br>
+・flag の値(true/false)を変換<br>
+→ クリックで flag の真偽値が切り替わるメソッドを作成</p>
+</blockquote>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+演習1の CSSコードを以下の記述に書き換えて、結果を確認しましょう。<br>
+</div>
+<pre class="hljs"><code><div><span class="hljs-comment">/*アニメーション実施中の設定*/</span>
+<span class="hljs-selector-class">.v-enter-active</span>,
+<span class="hljs-selector-class">.v-leave-active</span> {
+  <span class="hljs-attribute">transition</span>: opacity <span class="hljs-number">2s</span>;
+}
+<span class="hljs-comment">/*開始状態(表示)*/</span>
+<span class="hljs-selector-class">.v-enter</span> {
+  <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-comment">/*終了状態*/</span>
+<span class="hljs-selector-class">.v-enter-to</span> {
+  <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+}
+<span class="hljs-comment">/*開始状態(非表示)*/</span>
+<span class="hljs-selector-class">.v-leave</span> {
+  <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+}
+<span class="hljs-comment">/*終了状態*/</span>
+<span class="hljs-selector-class">.v-leave-to</span> {
+  <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<br>
+<hr>
+<p><br><br><br></p>
+<h1 id="3-%E5%BF%9C%E7%94%A8-vuejs2">3. 応用 Vue.js(2)</h1>
+<h2 id="%E2%97%86vuetify-%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9">◆Vuetify の使い方</h2>
+<img src="vuetify.PNG" alt="introduction">
+<h3 id="%E2%97%8Fvuetify-%E3%81%A8%E3%81%AF">●Vuetify とは</h3>
+<p>Vue.js 用のマテリアルデザイン・コンポーネント・フレームワークの事です。<br>
+マテリアルデザインとは、Google が提唱している UI デザインで、パッと見で<br>
+操作方法が分かるようなデザインの事を指します。<br>
+(詳細は<a href="https://saruwakakun.com/html-css/material" target="_blank" >こちら</a>を参照下さい)</p>
+<p>Vuetify には、マテリアルデザイン化されたヘッダーやボタン、<br>
+グリッドレイアウトが用意されているため、Vue.js に導入する事で<br>
+簡単にデザイン出来るようになります。また、Vuetify 専用の<br>
+ディレクティブが用意されているため、新たに覚える必要があります。</p>
+<br>
+<h3 id="%E2%97%8F-%E6%BA%96%E5%82%99">● 準備</h3>
+<p>Vuetify は UI フレームワークのため、利用するにはインストールが<br>
+必要です。今回は CDN を記述して、利用出来るようにします。また、<br>
+Vuetify 専用のディレクティブもあるため、こちらについても学習<br>
+して行きましょう。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+jsフォルダ内の「Vuetifyフォルダ」をデスクトップへ移動させましょう。<br>
+また、Vuetifyフォルダ内のjsファイルに以下のコードを記述しましょう。
+</div>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">new</span> Vue({
+  <span class="hljs-attr">el</span>: <span class="hljs-string">"#app"</span>,
+  <span class="hljs-attr">vuetify</span>: <span class="hljs-keyword">new</span> Vuetify(),
+  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({
+    <span class="hljs-attr">drawer</span>: <span class="hljs-literal">null</span>,
+  }),
+});
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8F-%E3%83%98%E3%83%83%E3%83%80%E3%83%BC%E3%81%AE%E4%BD%9C%E6%88%90">● ヘッダーの作成</h3>
+<p>まずはヘッダーを作成します。次の演習はヘッダーの基本<br>
+構成となるコードを記載していますので、まずは記述して<br>
+行きましょう。</p>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを htmlファイルの bodyタグ配下に記述しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">v-app</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">v-app-bar</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"gray accent-4"</span> <span class="hljs-attr">dark</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--ヘッダー記述箇所 ↓--&gt;</span>
+        <span class="hljs-comment">&lt;!--ヘッダー記述箇所 ↑--&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">v-app-bar</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">v-app</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<br>
+<h4 id="%E2%97%8F-v-app-bar-%E3%81%AE%E8%A7%A3%E8%AA%AC">● v-app-bar の解説</h4>
+<blockquote>
+<p>v-app-bar は、サイトナビゲーションの主要なコンポーネントを作成します。<br>
+color で色を指定し、dark でテーマの色合いを設定しています。</p>
+</blockquote>
+<br>
+<h3 id="%E2%97%8F-%E3%83%98%E3%83%83%E3%83%80%E3%83%BC%E5%86%85%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84">● ヘッダー内のコンテンツ</h3>
+<p>続いて、ヘッダー内のコンテンツを記述して行きます。<br>
+今回は左側にメニューアイコンとタイトル、右側にアイコンを 3 つ並べます。<br>
+また、右端のアイコンにはアコーディオンメニューを設置し、5 つのリンクを<br>
+対応させます。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを htmlファイルに記述しましょう。(コピー&ペースト)<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!--ヘッダー記述箇所 ↓--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">v-app-bar-nav-icon</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">v-app-bar-nav-icon</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">v-toolbar-title</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">v-toolbar-title</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"flex-grow-1"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">v-btn</span> <span class="hljs-attr">icon</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">v-icon</span>&gt;</span>mdi-heart<span class="hljs-tag">&lt;/<span class="hljs-name">v-icon</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">v-btn</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">v-btn</span> <span class="hljs-attr">icon</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">v-icon</span>&gt;</span>mdi-magnify<span class="hljs-tag">&lt;/<span class="hljs-name">v-icon</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">v-btn</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">v-menu</span> <span class="hljs-attr">left</span> <span class="hljs-attr">bottom</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:activator</span>=<span class="hljs-string">"{ on }"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">v-btn</span> <span class="hljs-attr">icon</span> <span class="hljs-attr">v-on</span>=<span class="hljs-string">"on"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">v-icon</span>&gt;</span>mdi-dots-vertical<span class="hljs-tag">&lt;/<span class="hljs-name">v-icon</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">v-btn</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">v-list</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">v-list-item</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"n in 5"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"n"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"() =&gt; {}"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">v-list-item-title</span>&gt;</span>Option {{ n }}<span class="hljs-tag">&lt;/<span class="hljs-name">v-list-item-title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">v-list-item</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">v-list</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">v-menu</span>&gt;</span>
+<span class="hljs-comment">&lt;!--ヘッダー記述箇所 ↑--&gt;</span>
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8F-%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E8%A7%A3%E8%AA%AC">● コードの解説</h3>
+<blockquote>
+<p>・v-app-bar-nav-icon：ナビアイコン表示を設定<br>
+・v-toolbar-title：タイトル文字を設定<br>
+・.flex-grow-1：flexbox のコンテナ内のアイテム伸び率を 1 に指定<br>
+(詳細は<a href="https://dekiru.net/article/13237/" target="_blank" >こちら</a>を参照下さい)<br>
+・v-btn：ボタンを作成<br>
+・v-icon：アイコンの指定
+・template：開閉ボタン<br>
+・v-slot:activator 属性：v-on と on の紐付け<br>
+・v-list：リストメニュー<br>
+・v-list-item：変数 n を v-for でループ<br>
+・v-list-item-title：文字列 Option の表示<br>
+・{{ n }} ：v-for の値を参照して枝番号化。</p>
+</blockquote>
+<br>
+<br>
+<hr>
+<p><br><br><br></p>
+<h1 id="4-%E5%BF%9C%E7%94%A8-vuejs3">4. 応用 Vue.js(3)</h1>
+<p>3 章に続き、Vuetify で利用可能な UI コンポーネントを学習します。<br>
+今回は詳細な解説は行わず、よく使われる UI の作成を体験しましょう。</p>
+<br>
+<h3 id="%E2%97%8F-%E3%83%95%E3%83%83%E3%82%BF%E3%83%BC">● フッター</h3>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述(コピー&ペースト)して、フッターを作成しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!--コンテンツのタグ--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">v-content</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">v-container</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">v-container</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">v-content</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!--フッターの作成--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">v-footer</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"flex-grow-1"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-symbol">&amp;copy;</span> 2019 - {{ new Date().getFullYear() }} 第6回Web勉強会<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">v-footer</span>&gt;</span>
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8F-%E3%83%91%E3%83%B3%E3%81%8F%E3%81%9A%E3%83%AA%E3%82%B9%E3%83%88">● パンくずリスト</h3>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述(コピー&ペースト)して、パンくずリストを作成しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">v-breadcrumbs</span> <span class="hljs-attr">:items</span>=<span class="hljs-string">"items"</span> <span class="hljs-attr">divider</span>=<span class="hljs-string">"&gt;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">v-breadcrumbs</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">//drawer: null,の下に記述</span>
+<span class="hljs-attr">items</span>: [
+    {
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'TOP'</span>,
+        <span class="hljs-attr">disabled</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">href</span>: <span class="hljs-string">'#'</span>,
+    },
+    {
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'会社概要'</span>,
+        <span class="hljs-attr">disabled</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">href</span>: <span class="hljs-string">'#'</span>,
+    },
+    {
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'イベント'</span>,
+        <span class="hljs-attr">disabled</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">href</span>: <span class="hljs-string">'#'</span>,
+    },
+    {
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'勉強会'</span>,
+        <span class="hljs-attr">disabled</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">href</span>: <span class="hljs-string">'#'</span>,
+    },
+    {
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'第6回 Web系勉強会'</span>,
+        <span class="hljs-attr">disabled</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">href</span>: <span class="hljs-string">'#'</span>,
+    },
+],
+</div></code></pre>
+<br>
+<h3 id="%E2%97%8F-%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%80%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%BC%E3%82%BB%E3%83%AB">● スライダー(カルーセル)</h3>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+以下のコードを記述(コピー&ペースト)して、スライダーを作成しましょう。<br>
+</div>
+<p>[html]</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">v-carousel</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">v-carousel-item</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(color, i) in colors"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"color"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">v-sheet</span> <span class="hljs-attr">:color</span>=<span class="hljs-string">"color"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"100%"</span> <span class="hljs-attr">tile</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">v-row</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fill-height"</span> <span class="hljs-attr">align</span>=<span class="hljs-string">"center"</span> <span class="hljs-attr">justify</span>=<span class="hljs-string">"center"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"display-3"</span>&gt;</span>スライド {{ i + 1 }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">v-row</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">v-sheet</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">v-carousel-item</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">v-carousel</span>&gt;</span>
+</div></code></pre>
+<p>[JavaScript]</p>
+<pre class="hljs"><code><div>colors: [
+    <span class="hljs-string">'primary'</span>,
+    <span class="hljs-string">'secondary'</span>,
+    <span class="hljs-string">'yellow darken-2'</span>,
+    <span class="hljs-string">'red'</span>,
+    <span class="hljs-string">'orange'</span>,
+],
+</div></code></pre>
+<br>
+<h2 id="%E2%97%86-%E3%81%8A%E3%81%BE%E3%81%91">◆ おまけ</h2>
+<p>Web 系勉強会の午後の部、お疲れ様でした。<br>
+全 6 回を通して、JavaScript の基礎から応用まで学習して来ました。<br>
+全体像やキーワードを学べるよう、テキスト作成に努めて<br>
+参りましたが、まだまだ学習量としては物足りない状態です。</p>
+<p>そのため、今後も JavaScript の学習を進める際の有用なサイトや、<br>
+学習方法を紹介して終わりたいと思います。</p>
+<br>
+<h3 id="%E2%97%8F-%E5%AD%A6%E7%BF%92%E6%96%B9%E9%87%9D">● 学習方針</h3>
+<h4 id="%E2%98%85-mdn-web-docs">★ MDN web docs</h4>
+<blockquote>
+<p>・リファレンスサイトである「MDN」を体系的にまとめた記事。<br>
+・JavaScript チュートリアル（完全な初心者向け）から読み進める。<br>
+・内容は堅いが、基礎の理解に繋がる。<br>
+▶<a href="https://qiita.com/snakada/items/07347d6ad10ae661fbc6" target="_blank">リンク</a></p>
+</blockquote>
+<blockquote>
+<p>▶<a href="https://ja.javascript.info/" target="_blank">現代の JavaScript チュートリアル</a></p>
+</blockquote>
+<blockquote>
+<p>▶<a href="https://hatena.github.io/Hatena-Textbook-JavaScript/" target="_blank">はてな教科書 JavaScript 編</a></p>
+</blockquote>
+<blockquote>
+<p>▶<a href="https://jsprimer.net/" target="_blank">JavaScript Primer</a></p>
+</blockquote>
+<br>
+<h3 id="%E2%97%8F-%E5%AD%A6%E7%BF%92%E3%82%B5%E3%82%A4%E3%83%88-%E2%80%BBhtmlcss-%E3%81%AE%E5%86%85%E5%AE%B9%E3%81%A8%E5%90%8C%E3%81%98">● 学習サイト ※HTML/CSS の内容と同じ</h3>
+<h4 id="%E2%98%85-progate">★ Progate</h4>
+<blockquote>
+<p>・解説のスライドとオンラインエディタでコードを学習する。<br>
+・環境設定が一切不要。
+・初心者向けに丁寧に作られている。<br>
+・無料と有料のコンテンツがあり、有料会員は 月額 980 円<br>
+▶<a href="https://prog-8.com/" target="_blank">リンク</a></p>
+</blockquote>
+<h4 id="%E2%98%85-%E3%83%89%E3%83%83%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">★ ドットインストール</h4>
+<blockquote>
+<p>・動画学習サイト。<br>
+・1 コース当たり 10 ～ 20 程度の動画で構成(1 本あたり 2 ～ 3 分)<br>
+・基礎的な部分は把握している前提の解説が多い。<br>
+・言語やフレームワークなど、コンテンツの幅が広い。<br>
+・無料と有料のコンテンツがあり、有料会員は 月額 980 円<br>
+▶<a href="https://dotinstall.com/" target="_blank">リンク</a></p>
+</blockquote>
+<h4 id="%E2%98%85-udemy">★ Udemy</h4>
+<blockquote>
+<p>・有料の動画学習サイト。
+・上記 2 サイトとは異なり、コース毎に購入する。<br>
+・1 つのテーマに集中して学習したい場合に向いている。<br>
+・90% OFF セールが頻発するので、それを待って購入するように。<br>
+▶<a href="https://www.udemy.com/courses/development/" target="_blank">リンク</a></p>
+</blockquote>
+<br>
+<h3 id="%E2%97%8F-vuejs-%E5%8F%82%E8%80%83%E3%82%B5%E3%82%A4%E3%83%88">● Vue.js 参考サイト</h3>
+<blockquote>
+<p>▶<a href="https://jp.vuejs.org/v2/guide/" target="_blank">Vue.js リファレンス</a></p>
+</blockquote>
+<blockquote>
+<p>▶<a href="https://qiita.com/i-ryo/items/baa50cf0a6647fe8bd2e?utm_source=Qiita%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9&utm_campaign=5a6cd39643-Qiita_newsletter_386_11_06_2019&utm_medium=email&utm_term=0_e44feaa081-5a6cd39643-34253625" target="_blank">Vue.js を習得するためにやった事 まとめ</a></p>
+</blockquote>
+<blockquote>
+<p>▶<a href="https://www.kabanoki.net/category/vue-js/" target="_blank">カバの樹</a></p>
+</blockquote>
+<blockquote>
+<p>▶<a href="https://reffect.co.jp/" target="_blank">REFFECT</a></p>
+</blockquote>
+<p><br><br></p>
+<hr>
+<p>以上で JavaScript のテキストは終了です。<br>
+お疲れ様でした！</p>
+
+</body>
+</html>
